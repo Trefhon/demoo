@@ -1,0 +1,338 @@
+﻿@page
+@model ContentVisorDemo.Pages.ContentSelectorModel
+@{
+    ViewData["Title"] = "Анализ контента";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin: 10px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+        }
+
+        .category-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            border-color: #007bff;
+        }
+
+        .category-card.selected {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+
+        .channel-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .channel-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .channel-item.selected {
+            background-color: #e3f2fd;
+            border-left: 4px solid #007bff;
+        }
+
+        .apply-btn-container {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Выбор контента -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">📂 Категории контента</h5>
+                        <p class="card-text">Выберите категорию для детального анализа</p>
+
+                        <div class="row g-2">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card category-card h-100" onclick="selectCategory('food')">
+                                    <div class="card-body text-center d-flex flex-column p-3">
+                                        <h6 class="mb-1">🍕 Еда</h6>
+                                        <small class="text-muted">12 каналов</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-success small">89%</span>
+                                        </div>
+                                        <div class="mt-auto pt-1">
+                                            <small class="text-muted">15.2M</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card category-card h-100" onclick="selectCategory('sports')">
+                                    <div class="card-body text-center d-flex flex-column p-3">
+                                        <h6 class="mb-1">⚽ Спорт</h6>
+                                        <small class="text-muted">8 каналов</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-warning small">82%</span>
+                                        </div>
+                                        <div class="mt-auto pt-1">
+                                            <small class="text-muted">9.8M</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card category-card h-100" onclick="selectCategory('gaming')">
+                                    <div class="card-body text-center d-flex flex-column p-3">
+                                        <h6 class="mb-1">🎮 Игры</h6>
+                                        <small class="text-muted">15 каналов</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-info small">76%</span>
+                                        </div>
+                                        <div class="mt-auto pt-1">
+                                            <small class="text-muted">21.5M</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card category-card h-100" onclick="selectCategory('gardening')">
+                                    <div class="card-body text-center d-flex flex-column p-3">
+                                        <h6 class="mb-1">🌿 Садоводство</h6>
+                                        <small class="text-muted">6 каналов</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-success small">91%</span>
+                                        </div>
+                                        <div class="mt-auto pt-1">
+                                            <small class="text-muted">4.3M</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card category-card h-100" onclick="selectCategory('tech')">
+                                    <div class="card-body text-center d-flex flex-column p-3">
+                                        <h6 class="mb-1">💻 Технологии</h6>
+                                        <small class="text-muted">10 каналов</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-primary small">84%</span>
+                                        </div>
+                                        <div class="mt-auto pt-1">
+                                            <small class="text-muted">18.9M</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card category-card h-100" onclick="selectCategory('fashion')">
+                                    <div class="card-body text-center d-flex flex-column p-3">
+                                        <h6 class="mb-1">👗 Мода</h6>
+                                        <small class="text-muted">9 каналов</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-danger small">88%</span>
+                                        </div>
+                                        <div class="mt-auto pt-1">
+                                            <small class="text-muted">12.7M</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Кнопка применения выбора -->
+                        <div class="apply-btn-container text-center mt-3 pt-3">
+                            <button class="btn btn-primary btn-lg" onclick="applyContentSelection()">
+                                🚀 Начать анализ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">📺 Все каналы</h5>
+                        <p class="card-text">Выберите конкретные каналы для анализа</p>
+                        <input type="text" class="form-control mb-3" id="channelSearch" placeholder="🔍 Поиск каналов..." onkeyup="searchChannels()">
+                        <div class="channels-list" style="max-height: 400px; overflow-y: auto;">
+                            <!-- Список всех каналов будет генерироваться динамически -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Данные каналов (60 каналов)
+        const channelsData = {
+            food: [
+                { id: 1, name: "Рецепты от Шефа", subscribers: "2.1M" },
+                { id: 2, name: "Вкусно и точка", subscribers: "1.8M" },
+                { id: 3, name: "Кулинарные хитрости", subscribers: "950K" },
+                { id: 4, name: "Домашняя кухня", subscribers: "1.2M" },
+                { id: 5, name: "Street Food", subscribers: "3.4M" },
+                { id: 6, name: "Выпечка PRO", subscribers: "780K" },
+                { id: 7, name: "Здоровое питание", subscribers: "1.1M" },
+                { id: 8, name: "Барменские секреты", subscribers: "620K" },
+                { id: 9, name: "Восточная кухня", subscribers: "890K" },
+                { id: 10, name: "Веган рецепты", subscribers: "540K" },
+                { id: 11, name: "Гриль мастер", subscribers: "710K" },
+                { id: 12, name: "Десерты дня", subscribers: "1.3M" }
+            ],
+            sports: [
+                { id: 13, name: "Спорт LIVE", subscribers: "4.2M" },
+                { id: 14, name: "Фитнес Про", subscribers: "1.5M" },
+                { id: 15, name: "Баскетбол ТВ", subscribers: "890K" },
+                { id: 16, name: "Футбол 24/7", subscribers: "2.8M" },
+                { id: 17, name: "Теннис PRO", subscribers: "670K" },
+                { id: 18, name: "Бокс и ММА", subscribers: "1.9M" },
+                { id: 19, name: "Плавание для всех", subscribers: "430K" },
+                { id: 20, name: "Йога и медитация", subscribers: "1.2M" }
+            ],
+            gaming: [
+                { id: 21, name: "Гейминг Zone", subscribers: "3.1M" },
+                { id: 22, name: "Киберспорт Pro", subscribers: "1.9M" },
+                { id: 23, name: "Игровые обзоры", subscribers: "2.4M" },
+                { id: 24, name: "Мобильные игры", subscribers: "1.7M" },
+                { id: 25, name: "Ретро Гейминг", subscribers: "560K" },
+                { id: 26, name: "Инди игры", subscribers: "890K" },
+                { id: 27, name: "Стрим недели", subscribers: "2.1M" },
+                { id: 28, name: "Геймдев новости", subscribers: "1.3M" },
+                { id: 29, name: "Виртуальная реальность", subscribers: "780K" },
+                { id: 30, name: "Игровая аналитика", subscribers: "950K" },
+                { id: 31, name: "Косплей мастерская", subscribers: "1.4M" },
+                { id: 32, name: "Настольные игры", subscribers: "620K" },
+                { id: 33, name: "Симуляторы", subscribers: "1.1M" },
+                { id: 34, name: "Геймерские мемы", subscribers: "2.8M" },
+                { id: 35, name: "Разбор игр", subscribers: "1.6M" }
+            ],
+            gardening: [
+                { id: 36, name: "Сад и огород", subscribers: "780K" },
+                { id: 37, name: "Цветоводство", subscribers: "450K" },
+                { id: 38, name: "Дачные советы", subscribers: "920K" },
+                { id: 39, name: "Органическое земледелие", subscribers: "340K" },
+                { id: 40, name: "Ландшафтный дизайн", subscribers: "670K" },
+                { id: 41, name: "Комнатные растения", subscribers: "1.1M" }
+            ],
+            tech: [
+                { id: 42, name: "TechReview", subscribers: "2.9M" },
+                { id: 43, name: "Гаджеты дня", subscribers: "1.4M" },
+                { id: 44, name: "Программирование", subscribers: "2.1M" },
+                { id: 45, name: "Обзоры смартфонов", subscribers: "1.8M" },
+                { id: 46, name: "Умный дом", subscribers: "1.2M" },
+                { id: 47, name: "ИТ новости", subscribers: "1.7M" },
+                { id: 48, name: "Кибербезопасность", subscribers: "890K" },
+                { id: 49, name: "Искусственный интеллект", subscribers: "1.5M" },
+                { id: 50, name: "Робототехника", subscribers: "680K" },
+                { id: 51, name: "Технологии будущего", subscribers: "2.3M" }
+            ],
+            fashion: [
+                { id: 52, name: "Модные тренды", subscribers: "1.6M" },
+                { id: 53, name: "Стиль и красота", subscribers: "2.3M" },
+                { id: 54, name: "Уличная мода", subscribers: "1.1M" },
+                { id: 55, name: "Бьюти блог", subscribers: "3.2M" },
+                { id: 56, name: "Мужской стиль", subscribers: "1.4M" },
+                { id: 57, name: "Визаж искусство", subscribers: "1.8M" },
+                { id: 58, name: "История моды", subscribers: "760K" },
+                { id: 59, name: "Эко-мода", subscribers: "540K" },
+                { id: 60, name: "Дизайнерские бренды", subscribers: "920K" }
+            ]
+        };
+
+        let selectedCategory = null;
+        let selectedChannels = new Set();
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAllChannels();
+        });
+
+        function selectCategory(category) {
+            selectedCategory = category;
+            selectedChannels.clear();
+
+            // Подсветка выбранной категории
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        function renderAllChannels() {
+            const container = document.querySelector('.channels-list');
+            let allChannels = [];
+
+            // Собираем все каналы из всех категорий
+            Object.values(channelsData).forEach(categoryChannels => {
+                allChannels = allChannels.concat(categoryChannels);
+            });
+
+            // Сортируем по названию
+            allChannels.sort((a, b) => a.name.localeCompare(b.name));
+
+            container.innerHTML = allChannels.map(channel => `
+                <div class="channel-item ${selectedChannels.has(channel.id) ? 'selected' : ''}"
+                     onclick="toggleChannel(${channel.id})">
+                    <strong>${channel.name}</strong>
+                    <small class="text-muted">${channel.subscribers} подписчиков</small>
+                </div>
+            `).join('');
+        }
+
+        function toggleChannel(channelId) {
+            if (selectedChannels.has(channelId)) {
+                selectedChannels.delete(channelId);
+            } else {
+                selectedChannels.add(channelId);
+            }
+            // Перерисовываем список для обновления выделения
+            renderAllChannels();
+        }
+
+        function searchChannels() {
+            const searchTerm = document.getElementById('channelSearch').value.toLowerCase();
+            const channels = document.querySelectorAll('.channels-list .channel-item');
+
+            channels.forEach(channel => {
+                const name = channel.querySelector('strong').textContent.toLowerCase();
+                channel.style.display = name.includes(searchTerm) ? 'block' : 'none';
+            });
+        }
+
+        function applyContentSelection() {
+            if (selectedChannels.size === 0 && !selectedCategory) {
+                alert('Пожалуйста, выберите категорию или конкретные каналы');
+                return;
+            }
+
+            // Если выбрана категория - переходим на страницу аналитики категории
+            if (selectedCategory) {
+                window.location.href = `/CategoryAnalytics?category=${selectedCategory}`;
+            } 
+            // Если выбраны конкретные каналы - можно перейти на другую страницу или показать другой анализ
+            else if (selectedChannels.size > 0) {
+                const channelIds = Array.from(selectedChannels).join(',');
+                window.location.href = `/ChannelAnalytics?channels=${channelIds}`;
+            }
+        }
+    </script>
+</body>
+</html>

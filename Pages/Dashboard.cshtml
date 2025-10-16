@@ -1,0 +1,139 @@
+﻿@page
+@model ContentVisorDemo.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Дешборд аналитики";
+    var videoId = Request.Query["id"].FirstOrDefault() ?? "1";
+
+    // Данные для разных видео (в реальном приложении это было бы из БД)
+    var videoData = new Dictionary<string, dynamic>
+            {
+                ["1"] = new { Views = "2.5M", Likes = "125K", Comments = "2.8K", Engagement = 88, Demography = "18-24 года", Retention = 72 },
+                ["2"] = new { Views = "1.8M", Likes = "95K", Comments = "1.5K", Engagement = 92, Demography = "25-34 года", Retention = 85 },
+                ["3"] = new { Views = "3.1M", Likes = "180K", Comments = "4.2K", Engagement = 78, Demography = "13-17 лет", Retention = 68 },
+                ["4"] = new { Views = "4.2M", Likes = "210K", Comments = "5.1K", Engagement = 95, Demography = "25-44 года", Retention = 91 },
+                ["5"] = new { Views = "1.5M", Likes = "75K", Comments = "1.2K", Engagement = 85, Demography = "18-35 лет", Retention = 79 }
+            };
+
+    var currentVideo = videoData.ContainsKey(videoId) ? videoData[videoId] : videoData["1"];
+}
+
+<div class="container">
+    <h1>📊 Дешборд аналитики</h1>
+    <p class="lead">Статистика для видео #@videoId</p>
+
+    <!-- Селектор видео -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <select id="videoSelector" class="form-select" onchange="changeVideo(this.value)">
+                <option value="1" selected="@(videoId == "1")">🎬 Обзор новых фич iOS</option>
+                <option value="2" selected="@(videoId == "2")">👗 Тренды моды 2025</option>
+                <option value="3" selected="@(videoId == "3")">🎮 Гейминг обзор</option>
+                <option value="4" selected="@(videoId == "4")">👨‍🍳 Кулинарный хак</option>
+                <option value="5" selected="@(videoId == "5")">💪 Фитнес тренировка</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Основные метрики -->
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h5>👀 Просмотры</h5>
+                    <h3>@currentVideo.Views</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h5>👍 Лайки</h5>
+                    <h3>@currentVideo.Likes</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body text-center">
+                    <h5>💬 Комментарии</h5>
+                    <h3>@currentVideo.Comments</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h5>📈 Вовлеченность</h5>
+                    <h3>@currentVideo.Engagement%</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Графики и детальная аналитика -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Удержание аудитории</h5>
+                    <div class="progress" style="height: 30px;">
+                        <div class="progress-bar bg-success" style="width: @currentVideo.Retention%">
+                            @currentVideo.Retention%
+                        </div>
+                    </div>
+                    <small class="text-muted">Процент досмотревших до конца</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Демография аудитории</h5>
+                    <p class="h4">@currentVideo.Demography</p>
+                    <small class="text-muted">Основная возрастная группа</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Визуализация дешборда -->
+    <div class="text-center mt-4">
+        <img src="/images/dashboard.jpg" alt="Дешборд статистики" class="img-fluid" style="max-height: 500px; border: 2px solid #dee2e6; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <p class="mt-3 text-muted">Интерактивный дешборд аналитики ContentVisor</p>
+    </div>
+</div>
+
+<script>
+    function changeVideo(videoId) {
+        // Обновляем страницу с новым videoId
+        window.location.href = `/Dashboard?id=${videoId}`;
+    }
+
+    // Автоматическое обновление данных каждые 5 секунд (для демо)
+    setInterval(() => {
+        const videoId = document.getElementById('videoSelector').value;
+        // Здесь мог бы быть AJAX запрос для обновления данных
+        console.log(`Auto-refresh data for video ${videoId}`);
+    }, 5000);
+</script>
+
+<style>
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+    .progress {
+        border-radius: 10px;
+    }
+
+    .progress-bar {
+        border-radius: 10px;
+        font-weight: bold;
+    }
+</style>

@@ -1,0 +1,165 @@
+﻿@page
+@model ContentVisorDemo.Pages.CategoryAnalyticsModel
+@{
+    ViewData["Title"] = "Аналитика категории";
+    var category = Request.Query["category"].FirstOrDefault() ?? "tech";
+}
+
+<div class="container">
+@*     <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>📊 Аналитика категории</h1>
+        <a href="/" class="btn btn-outline-secondary">← Назад к главной</a>
+    </div> *@
+
+    @{
+        var categoryData = new Dictionary<string, dynamic>
+        {
+            ["tech"] = new { Name = "Технологии", Color = "primary", Icon = "💻" },
+            ["food"] = new { Name = "Еда", Color = "success", Icon = "🍕" },
+            ["sports"] = new { Name = "Спорт", Color = "warning", Icon = "⚽" },
+            ["gaming"] = new { Name = "Игры", Color = "info", Icon = "🎮" },
+            ["fashion"] = new { Name = "Мода", Color = "danger", Icon = "👗" },
+            ["gardening"] = new { Name = "Садоводство", Color = "success", Icon = "🌿" }
+        };
+
+        var currentCategory = categoryData.ContainsKey(category) ? categoryData[category] : categoryData["tech"];
+    }
+
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <h2 class="card-title">@currentCategory.Icon @currentCategory.Name</h2>
+            <p class="lead">Детальная аналитика по выбранной категории</p>
+        </div>
+    </div>
+
+    <!-- Основные метрики категории -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-@currentCategory.Color">
+                <div class="card-body text-center">
+                    <h5>📺 Просмотры</h5>
+                    <h3>18.9M</h3>
+                    <small>+12.3% за неделю</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-@currentCategory.Color">
+                <div class="card-body text-center">
+                    <h5>👍 Вовлечение</h5>
+                    <h3>84%</h3>
+                    <small>+2.1% за неделю</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-@currentCategory.Color">
+                <div class="card-body text-center">
+                    <h5>🎬 Видео</h5>
+                    <h3>156</h3>
+                    <small>Активные</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-@currentCategory.Color">
+                <div class="card-body text-center">
+                    <h5>📈 Трендовость</h5>
+                    <h3>87%</h3>
+                    <small>Высокая</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Топ видео в категории -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🔥 Топ видео в категории</h5>
+                    <div class="row" id="categoryVideos">
+                        <!-- Видео будут загружены динамически -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadCategoryVideos('@category');
+    });
+
+    function loadCategoryVideos(category) {
+        const videos = {
+            tech: [
+                { id: 1, title: "Обзор новых фич iOS", views: "2.5M", engagement: 88 },
+                { id: 6, title: "Новый смартфон обзор", views: "1.8M", engagement: 82 },
+                { id: 7, title: "ИИ в повседневной жизни", views: "3.2M", engagement: 91 },
+                { id: 42, title: "Лучшие гаджеты 2024", views: "2.1M", engagement: 85 },
+                { id: 43, title: "Программирование для начинающих", views: "1.4M", engagement: 79 }
+            ],
+            food: [
+                { id: 4, title: "Кулинарный хак", views: "4.2M", engagement: 95 },
+                { id: 8, title: "Рецепт недели", views: "2.1M", engagement: 89 },
+                { id: 9, title: "Здоровое питание", views: "1.5M", engagement: 87 },
+                { id: 10, title: "Быстрые ужины", views: "3.8M", engagement: 92 },
+                { id: 11, title: "Десерты за 5 минут", views: "2.9M", engagement: 94 }
+            ],
+            sports: [
+                { id: 13, title: "Тренировка для начинающих", views: "1.2M", engagement: 82 },
+                { id: 14, title: "Фитнес дома", views: "2.3M", engagement: 85 },
+                { id: 15, title: "Лучшие голы недели", views: "3.5M", engagement: 89 },
+                { id: 16, title: "Йога для расслабления", views: "1.8M", engagement: 87 },
+                { id: 17, title: "Подготовка к марафону", views: "950K", engagement: 84 }
+            ],
+            gaming: [
+                { id: 21, title: "Обзор новой игры", views: "4.1M", engagement: 91 },
+                { id: 22, title: "Киберспорт: финал турнира", views: "2.8M", engagement: 88 },
+                { id: 23, title: "Геймплей прохождение", views: "1.9M", engagement: 83 },
+                { id: 24, title: "Топ 10 игр месяца", views: "3.2M", engagement: 86 },
+                { id: 25, title: "Секреты и пасхалки", views: "2.1M", engagement: 89 }
+            ],
+            gardening: [
+                { id: 36, title: "Выращивание томатов", views: "850K", engagement: 91 },
+                { id: 37, title: "Уход за комнатными растениями", views: "1.1M", engagement: 89 },
+                { id: 38, title: "Ландшафтный дизайн", views: "720K", engagement: 87 },
+                { id: 39, title: "Органическое земледелие", views: "680K", engagement: 90 },
+                { id: 40, title: "Сезонные работы в саду", views: "950K", engagement: 88 }
+            ],
+            fashion: [
+                { id: 52, title: "Тренды весны 2025", views: "2.8M", engagement: 92 },
+                { id: 53, title: "Обзор модных показов", views: "1.9M", engagement: 87 },
+                { id: 54, title: "Стильные образы на каждый день", views: "3.1M", engagement: 90 },
+                { id: 55, title: "Бьюти-советы", views: "4.2M", engagement: 94 },
+                { id: 56, title: "Мужская мода", views: "2.3M", engagement: 85 }
+            ]
+        };
+
+        const categoryVideos = videos[category] || videos.tech;
+        const container = document.getElementById('categoryVideos');
+
+        container.innerHTML = categoryVideos.map(video => `
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>${video.title}</h6>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-success">${video.views}</span>
+                            <span class="text-info">${video.engagement}%</span>
+                        </div>
+                        <button onclick="openVideoAnalytics(${video.id})" class="btn btn-outline-primary btn-sm mt-2 w-100">
+                            Смотреть аналитику
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openVideoAnalytics(videoId) {
+        window.location.href = `/Dashboard?id=${videoId}`;
+    }
+</script>

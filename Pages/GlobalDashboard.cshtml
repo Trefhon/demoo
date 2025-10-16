@@ -1,0 +1,190 @@
+﻿@page
+@model ContentVisorDemo.Pages.GlobalDashboardModel
+@{
+    ViewData["Title"] = "Общая аналитика";
+}
+
+<div class="container">
+    <h1>📊 Общая аналитика трендов</h1>
+    <p class="lead">Сравнительная статистика по ТОП-5 видео</p>
+
+    <div class="row mt-4">
+        <!-- Общая статистика -->
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h5>📺 Всего просмотров</h5>
+                    <h3>13.1M</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h5>👍 Общее вовлечение</h5>
+                    <h3>87.6%</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body text-center">
+                    <h5>🎯 Средний retention</h5>
+                    <h3>79%</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h5>🔥 Трендовость</h5>
+                    <h3>94%</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- График просмотров по видео -->
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">📈 Просмотры по видео</h5>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="height: 200px; display: flex; align-items: end; gap: 20px; padding: 20px;">
+                            <div class="bar-group text-center">
+                                <div class="bar bg-success" style="height: 80%;"></div>
+                                <div>2.5M</div>
+                                <small>Видео 1</small>
+                            </div>
+                            <div class="bar-group text-center">
+                                <div class="bar bg-warning" style="height: 60%;"></div>
+                                <div>1.8M</div>
+                                <small>Видео 2</small>
+                            </div>
+                            <div class="bar-group text-center">
+                                <div class="bar bg-info" style="height: 95%;"></div>
+                                <div>3.1M</div>
+                                <small>Видео 3</small>
+                            </div>
+                            <div class="bar-group text-center">
+                                <div class="bar bg-danger" style="height: 100%;"></div>
+                                <div>4.2M</div>
+                                <small>Видео 4</small>
+                            </div>
+                            <div class="bar-group text-center">
+                                <div class="bar bg-primary" style="height: 50%;"></div>
+                                <div>1.5M</div>
+                                <small>Видео 5</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Популярные теги -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🏷️ Популярные теги</h5>
+                    <div class="tags-container">
+                        <span class="badge bg-primary mb-2 p-2">#технологии</span>
+                        <span class="badge bg-success mb-2 p-2">#мода</span>
+                        <span class="badge bg-info mb-2 p-2">#гейминг</span>
+                        <span class="badge bg-warning mb-2 p-2">#кулинария</span>
+                        <span class="badge bg-danger mb-2 p-2">#фитнес</span>
+                        <span class="badge bg-secondary mb-2 p-2">#тренды</span>
+                        <span class="badge bg-dark mb-2 p-2">#обзор</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Аналитика вовлеченности -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🎯 Вовлеченность по категориям</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Кулинария
+                            <span class="badge bg-success rounded-pill">95%</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Мода
+                            <span class="badge bg-success rounded-pill">92%</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Технологии
+                            <span class="badge bg-warning rounded-pill">88%</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Фитнес
+                            <span class="badge bg-warning rounded-pill">85%</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Гейминг
+                            <span class="badge bg-danger rounded-pill">78%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Ключевые инсайты</h5>
+                    <div class="insights">
+                        <div class="alert alert-success">
+                            <strong>✅ Кулинарный контент</strong><br>
+                            Самый высокий retention (91%)
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>💡 Утро понедельника</strong><br>
+                            Пик просмотров фитнес-контента
+                        </div>
+                        <div class="alert alert-warning">
+                            <strong>🎯 Возраст 18-24</strong><br>
+                            Основная аудитория технологий
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .chart-bar .bar {
+        width: 60px;
+        border-radius: 5px 5px 0 0;
+        transition: height 0.3s ease;
+    }
+
+    .chart-bar .bar-group {
+        flex: 1;
+    }
+
+    .bar:hover {
+        opacity: 0.8;
+    }
+
+    .tags-container .badge {
+        font-size: 0.9em;
+        margin-right: 5px;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
+    }
+</style>
